@@ -1,0 +1,12 @@
+stages:
+- name: Create Build Tag
+  steps:
+  - runScriptConfig:
+      image: jgreat/drone-build-tag:0.1.0
+      shellScript: build-tags.sh --include-feature-tag
+- name: Build and Publish Image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: jgreat/vote-demo-web:use-tags-file
